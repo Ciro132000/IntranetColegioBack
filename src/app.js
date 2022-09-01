@@ -14,7 +14,7 @@ app.use("../public",express.static('public'));
 const port = process.env.PORT || 3000;
 
 // Rutas
-app.use("api",require('./routes'));
+app.use("/api",require('./routes'));
 
 // Levantando servidor
 app.listen(port, () => {
