@@ -8,5 +8,7 @@ const controllerStudents = require('../controllers/students')
 
 router.get('', controllerStudents.mainFunction)
 
+router.post('/register', controllerStudents.registerStudens)
+
 // Exportamos todas las rutas
 module.exports = router; 

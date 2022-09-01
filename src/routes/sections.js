@@ -8,5 +8,9 @@ const controllerSections = require('../controllers/sections')
 
 router.get('', controllerSections.mainFunction)
 
+router.post('/register', controllerSections.registerSection)
+
+router.post('/assign', controllerSections.assignSection)
+
 // Exportamos todas las rutas
 module.exports = router; 

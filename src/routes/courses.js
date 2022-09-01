@@ -6,7 +6,7 @@ const controllerCourses = require('../controllers/courses')
 
 // Definicio de rutas
 
-router.get('', controllerCourses.mainFunction)
+router.get('', controllerCourses.allCourses)
 
 // Exportamos todas las rutas
 module.exports = router; 
