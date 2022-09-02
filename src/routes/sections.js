@@ -12,5 +12,7 @@ router.post('/register', controllerSections.registerSection)
 
 router.post('/assign', controllerSections.assignSection)
 
+router.post('/assign/schedule', controllerSections.assignSchedule)
+
 // Exportamos todas las rutas
 module.exports = router; 

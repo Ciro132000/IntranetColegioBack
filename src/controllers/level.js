@@ -5,17 +5,13 @@ const { QueryTypes } = require('sequelize');
 const fs =require('fs-extra')
 const { sequelize } = require('../config/connection')
 
-const {Cursos} = require('../sequelize/models')
+const {Niveles} = require('../sequelize/models')
 
 // Funciones del controlador
-const mainFunction = (req, res) => {
-    res.send({data:"Funcionando"})
-}
-
-const allCourses = async (req, res) => {
+const allLevels = async (req, res) => {
     try {
-        const data = await Cursos.findAll({
-            attributes: {exclude: ['idCurso']}
+        const data = await Niveles.findAll({
+            attributes: {exclude: ['idNivel']}
         });
         res.send({data})
     } catch (error) {
@@ -24,4 +20,4 @@ const allCourses = async (req, res) => {
 }
 
 // Exportacion de funciones
-module.exports = { mainFunction, allCourses }
+module.exports = { allLevels }

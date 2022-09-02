@@ -7,17 +7,23 @@ module.exports = {
       {
         codigo:'S182061',
         idCurso:1,
-        idDocente:1
+        idDocente:1,
+        createdAt: '2020-01-01 10:10:10',
+        updatedAt: '2020-01-01 10:10:10'
       },
       {
         codigo:'S182062',
         idCurso:2,
-        idDocente:1
+        idDocente:1,
+        createdAt: '2020-01-01 10:10:10',
+        updatedAt: '2020-01-01 10:10:10'
       },
       {
         codigo:'S182063',
         idCurso:3,
-        idDocente:2
+        idDocente:2,
+        createdAt: '2020-01-01 10:10:10',
+        updatedAt: '2020-01-01 10:10:10'
       }
     ]
 

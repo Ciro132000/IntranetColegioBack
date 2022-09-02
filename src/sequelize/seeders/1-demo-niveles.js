@@ -4,10 +4,14 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     let niveles = [
       {
-        nombre: 'Primaria'
+        nombre: 'Primaria',
+        createdAt: '2020-01-01 10:10:10',
+        updatedAt: '2020-01-01 10:10:10'
       },
       {
-        nombre: 'Secundaria'
+        nombre: 'Secundaria',
+        createdAt: '2020-01-01 10:10:10',
+        updatedAt: '2020-01-01 10:10:10'
       },
       
     ]

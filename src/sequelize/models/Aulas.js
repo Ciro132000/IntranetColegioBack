@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     idNivel: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Salones',
+    modelName: 'Aulas',
   });
   return Aulas;
 };
