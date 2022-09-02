@@ -8,6 +8,7 @@ module.exports = {
         nombre:'Matematicas',
         credito:2,
         horas:2,
+        idNivel: 1,
         createdAt: '2020-01-01 10:10:10',
         updatedAt: '2020-01-01 10:10:10'
       },
@@ -15,6 +16,7 @@ module.exports = {
         nombre:'Comunicación',
         credito:2,
         horas:2,
+        idNivel: 2,
         createdAt: '2020-01-01 10:10:10',
         updatedAt: '2020-01-01 10:10:10'
       },
@@ -22,6 +24,7 @@ module.exports = {
         nombre:'Ciencias Sociales',
         credito:2,
         horas:2,
+        idNivel: 2,
         createdAt: '2020-01-01 10:10:10',
         updatedAt: '2020-01-01 10:10:10'
       },
@@ -29,6 +32,7 @@ module.exports = {
         nombre:'Historia del Perú',
         credito:2,
         horas:2,
+        idNivel: 1,
         createdAt: '2020-01-01 10:10:10',
         updatedAt: '2020-01-01 10:10:10'
       }

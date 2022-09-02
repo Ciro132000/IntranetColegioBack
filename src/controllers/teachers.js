@@ -9,10 +9,10 @@ const {Docentes} = require('../sequelize/models')
 
 // Funciones del controlador
 const mainFunction = async (req, res) => {
-    const Data = await Docentes.findAll({
+    const data = await Docentes.findAll({
         attributes: {exclude: ['idDocente']}
     })
-    res.send({Data})
+    res.send({data})
 }
 
 const registerTeacher = async (req, res) => {

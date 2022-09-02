@@ -5,7 +5,7 @@ const { QueryTypes } = require('sequelize');
 const fs =require('fs-extra')
 const { sequelize } = require('../config/connection')
 const { generateRandomString }  = require('../utils/shared')
-const {Secciones} = require('../sequelize/models')
+const { Secciones, Horario } = require('../sequelize/models')
 
 // Funciones del controlador
 const mainFunction = (req, res) => {
@@ -20,7 +20,8 @@ const registerSection = async ( req, res ) => {
         do {
             cod = generateRandomString(6,'S')
             existCod = await Secciones.findOne({
-                where: {codigo: cod}
+                where: {codigo: cod},
+                attributes:  ['id']
             })  
         } while (existCod != null);
 
@@ -29,9 +30,13 @@ const registerSection = async ( req, res ) => {
             ...req.body
         }
 
+        console.log(dataSection)
+
         const data = await Secciones.create(dataSection)
 
         res.send({data}) 
+
+        
     } catch (error) {
         res.send({error})
     }
@@ -47,7 +52,8 @@ const assignSection = async (req, res) => {
 
         // Limitar el numero de secciones por profesor a 10
         const numSections = await Secciones.findAndCountAll({
-            where:{ idDocente: req.body.idDocente }
+            where:{ idDocente: req.body.idDocente },
+            attributes:  ['id']
         })
 
         if(numSections.count < 10){
@@ -77,7 +83,39 @@ const assignSection = async (req, res) => {
     }
 }
 
+// Asignar horarios a la seccion
+const assignSchedule = async (req, res) => {
+    try {
+
+        // verificar que la seccion existe
+        const numSections = await Secciones.findAndCountAll({
+            where:{ id: req.body.idSeccion },
+            attributes:  ['idCurso']
+        })
+
+        if(numSections.count > 0){
+            
+            let {horarios, ...SectionAula} = req.body
+
+            horarios.map( async function(h) {
+                dataSend = {
+                    ...numSections.rows[0].dataValues,
+                    ...h,
+                    ...SectionAula
+                }
+                await Horario.create(dataSend)
+            });
+
+            res.send({msg:'Horarios guardados'})
+
+        }
+
+    } catch (error) {
+        res.send({error})
+    }
+}
+
 
 
 // Exportar todos los metodos
-module.exports = { mainFunction, registerSection, assignSection }
+module.exports = { mainFunction, registerSection, assignSection, assignSchedule }

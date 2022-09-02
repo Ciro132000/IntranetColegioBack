@@ -19,6 +19,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'idDocente'
       })
 
+      Secciones.belongsTo(models.Horario,{
+        foreignKey:'id',
+        target_key: 'idSeccion'
+      })
+
     }
   }
   Secciones.init({
