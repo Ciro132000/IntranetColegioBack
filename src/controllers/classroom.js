@@ -1,10 +1,8 @@
 // Impotaciones necesarias
 require('dotenv').config();
 const { QueryTypes } = require('sequelize');
-const fs =require('fs-extra')
 const { sequelize } = require('../config/connection')
 
-const { Aulas, Horario, Secciones, Niveles} = require('../sequelize/models')
 
 // Funciones del controlador
 const allClassroom = async (req, res) => {

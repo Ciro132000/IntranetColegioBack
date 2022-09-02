@@ -2,7 +2,6 @@
 require('dotenv').config();
 const { QueryTypes } = require('sequelize');
 
-const fs =require('fs-extra')
 const { sequelize } = require('../config/connection')
 
 const {Cursos} = require('../sequelize/models')
