@@ -11,15 +11,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Estudiantes.hasMany(models.Niveles, {
+        foreignKey: 'idNivel'
+      } )
+
+      Estudiantes.hasMany(models.Aulas, {
+        foreignKey: 'idAula'
+      } )
     }
   }
   Estudiantes.init({
     codigo: DataTypes.STRING,
     nombre: DataTypes.STRING,
     apellido: DataTypes.STRING,
-    nivel: DataTypes.STRING,
     grado: DataTypes.INTEGER,
-    dni: DataTypes.STRING
+    dni: DataTypes.STRING,
+    idNivel: DataTypes.INTEGER,
+    idAula: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Estudiantes',
