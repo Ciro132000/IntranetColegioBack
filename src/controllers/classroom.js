@@ -11,7 +11,7 @@ const allClassroom = async (req, res) => {
         //     attributes: {exclude: ['idAulas']}
         // })
 
-        const [data, metadata ] = await sequelize.query(`SELECT aulas.id, aulas.nombre, niveles.id As idNivel, niveles.nombre as nivel FROM aulas INNER JOIN niveles ON niveles.id = aulas.idNivel`)
+        const [data, metadata ] = await sequelize.query(`SELECT Aulas.id, Aulas.nombre, Niveles.id As idNivel, Niveles.nombre as nivel FROM Aulas INNER JOIN Niveles ON Niveles.id = Aulas.idNivel`)
         res.send({data})
     } catch (error) {
         res.send({error})
@@ -20,7 +20,7 @@ const allClassroom = async (req, res) => {
 
 const scheduleClassroom = async (req, res) => {
     try {
-        const [data, metadata ] = await sequelize.query(`SELECT horarios.id, horarios.dia, horarios.horaInicio, horarios.horaFinal, secciones.codigo As seccion, cursos.nombre as curso FROM horarios INNER JOIN secciones ON secciones.id = horarios.idSeccion INNER JOIN cursos ON cursos.id = secciones.idCurso WHERE horarios.idAula = ${req.query.idAula}`)
+        const [data, metadata ] = await sequelize.query(`SELECT Horarios.id, Horarios.dia, Horarios.horaInicio, Horarios.horaFinal, Secciones.codigo As seccion, Cursos.nombre as curso FROM Horarios INNER JOIN Secciones ON Secciones.id = Horarios.idSeccion INNER JOIN Cursos ON Cursos.id = Secciones.idCurso WHERE Horarios.idAula = ${req.query.idAula}`)
         res.send({data})
     } catch (error) {
         res.send({error})
