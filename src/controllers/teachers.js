@@ -14,6 +14,15 @@ const mainFunction = async (req, res) => {
     res.send({data})
 }
 
+const allTeachers = async(req,res)=>{
+    try {
+        const [data, metadata] = await sequelize.query('SELECT Docentes.*, Niveles.nombre AS nivel FROM Docentes INNER JOIN Niveles ON Docentes.idNivel = Niveles.id ') 
+        res.send({data})
+    } catch (error) {
+        res.send(error)
+    }
+}
+
 const registerTeacher = async (req, res) => {
     try {
         let existCod = 0
@@ -53,4 +62,4 @@ const registerTeacher = async (req, res) => {
 }
 
 // Exportacion de funciones
-module.exports = { mainFunction, registerTeacher }
+module.exports = { mainFunction, registerTeacher, allTeachers }

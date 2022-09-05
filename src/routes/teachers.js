@@ -6,7 +6,7 @@ const controllerTeachers = require('../controllers/teachers')
 
 // Definicio de rutas
 
-router.get('', controllerTeachers.mainFunction)
+router.get('', controllerTeachers.allTeachers)
 
 router.post('/register', controllerTeachers.registerTeacher)
 

@@ -7,8 +7,13 @@ const { generateRandomString }  = require('../utils/shared')
 const { Secciones, Horario } = require('../sequelize/models')
 
 // Funciones del controlador
-const mainFunction = (req, res) => {
-    res.send({data:"Funcionando"})
+const mainFunction = async (req, res) => {
+    try {
+        const [data, metadata] = await sequelize.query('SELECT Secciones.* , Docentes.codigo AS codigoDocente, Docentes.nombre As nombreDocente, Niveles.nombre AS nivel FROM Secciones LEFT JOIN Docentes ON Secciones.idDocente = Docentes.id LEFT JOIN Niveles ON Docentes.idNivel = Niveles.id')
+        res.send({data})
+    } catch (error) {
+        res.send(error)
+    }
 }
 
 const registerSection = async ( req, res ) => {
@@ -117,4 +122,4 @@ const assignSchedule = async (req, res) => {
 
 
 // Exportar todos los metodos
-module.exports = { mainFunction, registerSection, assignSection, assignSchedule }
+module.exports = { mainFunction, registerSection, assignSection, assignSchedule}
