@@ -9,7 +9,7 @@ const {Estudiantes} = require('../sequelize/models')
 
 // Funciones del controlador
 const mainFunction = async (req, res) => {
-    const [data, metadata] =await sequelize.query(`SELECT Estudiantes.*, Niveles.nombre AS nivel, Aulas.nombre AS aula FROM Estudiantes INNER JOIN Niveles ON Niveles.id = Estudiantes.idNivel LEFT JOIN Aulas ON Estudiantes.idAula = Aulas.id`)
+    const [data, metadata] =await sequelize.query(`SELECT Estudiantes.*, Niveles.nombre AS nivel, CONCAT(Aulas.grado, Aulas.seccion) AS aula FROM Estudiantes INNER JOIN Niveles ON Niveles.id = Estudiantes.idNivel LEFT JOIN Aulas ON Estudiantes.idAula = Aulas.id`)
     res.send({data})
 }
 
