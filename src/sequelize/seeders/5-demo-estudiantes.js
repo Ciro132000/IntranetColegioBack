@@ -12,6 +12,7 @@ module.exports = {
         dni:'88888888',
         idNivel:1,
         idAula:1,
+        idUsuario:5,
         createdAt: '2020-01-01 10:10:10',
         updatedAt: '2020-01-01 10:10:10'
       },
@@ -23,6 +24,7 @@ module.exports = {
         dni:'88888888',
         idNivel:2,
         idAula:1,
+        idUsuario:6,
         createdAt: '2020-01-01 10:10:10',
         updatedAt: '2020-01-01 10:10:10'
       },
@@ -34,6 +36,7 @@ module.exports = {
         dni:'88888888',
         idNivel:1,
         idAula:1,
+        idUsuario:7,
         createdAt: '2020-01-01 10:10:10',
         updatedAt: '2020-01-01 10:10:10'
       },
@@ -45,6 +48,7 @@ module.exports = {
         dni:'88888888',
         idNivel:1,
         idAula:1,
+        idUsuario:8,
         createdAt: '2020-01-01 10:10:10',
         updatedAt: '2020-01-01 10:10:10'
       },
@@ -56,6 +60,7 @@ module.exports = {
         dni:'88888888',
         idNivel:1,
         idAula:1,
+        idUsuario:9,
         createdAt: '2020-01-01 10:10:10',
         updatedAt: '2020-01-01 10:10:10'
       }

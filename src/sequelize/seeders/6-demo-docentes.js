@@ -11,6 +11,7 @@ module.exports = {
         dni:'88888888',
         correo:'D148691@abc.edu.pe',
         idNivel:1,
+        idUsuario:2,
         createdAt: '2020-01-01 10:10:10',
         updatedAt: '2020-01-01 10:10:10'
       },
@@ -21,6 +22,7 @@ module.exports = {
         dni:'88888888',
         correo:'D148692@abc.edu.pe',
         idNivel:2,
+        idUsuario:3,
         createdAt: '2020-01-01 10:10:10',
         updatedAt: '2020-01-01 10:10:10'
       },
@@ -30,6 +32,7 @@ module.exports = {
         apellido:'Mendoza',
         dni:'88888888',
         idNivel:2,
+        idUsuario:4,
         correo:'D148693@abc.edu.pe',
         createdAt: '2020-01-01 10:10:10',
         updatedAt: '2020-01-01 10:10:10'

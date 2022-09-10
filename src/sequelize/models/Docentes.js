@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
       Docentes.hasMany(models.Niveles, {
         foreignKey: 'idNivel'
       } )
+
+      Docentes.hasMany(models.Usuarios, {
+        foreignKey: 'idUsuario'
+      } )
     }
   }
   Docentes.init({
@@ -27,7 +31,8 @@ module.exports = (sequelize, DataTypes) => {
     apellido: DataTypes.STRING,
     dni: DataTypes.STRING,
     correo: DataTypes.STRING,
-    idNivel:DataTypes.INTEGER
+    idNivel:DataTypes.INTEGER,
+    idUsuario:DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Docentes',

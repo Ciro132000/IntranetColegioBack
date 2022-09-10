@@ -11,7 +11,7 @@ const allClassroom = async (req, res) => {
         //     attributes: {exclude: ['idAulas']}
         // })
 
-        const [data, metadata ] = await sequelize.query(`SELECT Aulas.id, Aulas.nombre, Niveles.id As idNivel, Niveles.nombre as nivel FROM Aulas INNER JOIN Niveles ON Niveles.id = Aulas.idNivel`)
+        const [data, metadata ] = await sequelize.query(`SELECT Aulas.id, Aulas.grado, Aulas.seccion, Niveles.id As idNivel, Niveles.nombre as nivel FROM Aulas INNER JOIN Niveles ON Niveles.id = Aulas.idNivel`)
         res.send({data})
     } catch (error) {
         res.send({error})
