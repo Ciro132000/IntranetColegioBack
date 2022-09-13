@@ -5,7 +5,8 @@ const { QueryTypes } = require('sequelize');
 const { sequelize } = require('../config/connection')
 
 const { generateRandomString }  = require('../utils/shared')
-const {Estudiantes} = require('../sequelize/models')
+const {Estudiantes, Usuarios} = require('../sequelize/models')
+const { encrypt } = require('../utils/handlePassword');
 
 // Funciones del controlador
 const mainFunction = async (req, res) => {
@@ -30,15 +31,24 @@ const registerStudens = async (req, res) => {
                     where: {codigo: cod}
                 })  
             } while (existCod != null);
+
+            const registerUsuario = {
+                usuario:cod,
+                contrasena:await encrypt(req.body.dni),
+                idRol:3,
+            }
+
+            const dataUsuario = await Usuarios.create(registerUsuario)
     
             const dataEstudiante = {
                 codigo: cod,
-                ...req.body
+                ...req.body,
+                idUsuario: dataUsuario.id
             }
     
             const data = await Estudiantes.create(dataEstudiante)
-    
-            res.send({data}) 
+
+            res.send({data,dataUsuario}) 
         }else{
             res.send({msg:`El estudiante con dni ${req.body.dni} ya se encuentra registrado en la institución`})
         }
