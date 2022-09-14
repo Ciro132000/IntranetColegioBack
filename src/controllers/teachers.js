@@ -44,9 +44,11 @@ const registerTeacher = async (req, res) => {
                 })  
             } while (existCod != null);
 
+            const dni = req.body.dni
+
             const registerUsuario = {
                 usuario:cod,
-                contrasena:await encrypt(req.body.dni),
+                contrasena:await encrypt(dni.toString()),
                 idRol:2,
             }
 

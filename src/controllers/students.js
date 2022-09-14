@@ -32,9 +32,11 @@ const registerStudens = async (req, res) => {
                 })  
             } while (existCod != null);
 
+            const dni = req.body.dni
+
             const registerUsuario = {
                 usuario:cod,
-                contrasena:await encrypt(req.body.dni),
+                contrasena:await encrypt(dni.toString()),
                 idRol:3,
             }
 
@@ -48,12 +50,13 @@ const registerStudens = async (req, res) => {
     
             const data = await Estudiantes.create(dataEstudiante)
 
-            res.send({data,dataUsuario}) 
+            res.send({data}) 
         }else{
             res.send({msg:`El estudiante con dni ${req.body.dni} ya se encuentra registrado en la institución`})
         }
 
     } catch (error) {
+        console.log(error)
         res.send({error})
     }
 }
