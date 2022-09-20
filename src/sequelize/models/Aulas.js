@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         target_key: 'idAula'
       })
 
+      Aulas.belongsTo(models.Secciones,{
+        foreignKey:'id',
+        target_key: 'idAula'
+      })
+
       Aulas.hasMany(models.Niveles, {
         foreignKey: 'idNivel'
       })
