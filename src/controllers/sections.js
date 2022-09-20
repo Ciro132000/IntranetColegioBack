@@ -9,7 +9,7 @@ const { Secciones, Horario } = require('../sequelize/models')
 // Funciones del controlador
 const mainFunction = async (req, res) => {
     try {
-        const [data, metadata] = await sequelize.query('SELECT Secciones.* , Docentes.codigo AS codigoDocente, Docentes.nombre As nombreDocente, Niveles.nombre AS nivel FROM Secciones LEFT JOIN Docentes ON Secciones.idDocente = Docentes.id LEFT JOIN Niveles ON Docentes.idNivel = Niveles.id')
+        const [data, metadata] = await sequelize.query('SELECT Secciones.* , Cursos.idNivel, Docentes.codigo AS codigoDocente, Docentes.nombre As nombreDocente, Niveles.nombre AS nivel FROM Secciones LEFT JOIN Docentes ON Secciones.idDocente = Docentes.id LEFT JOIN Cursos ON Secciones.idCurso = Cursos.id LEFT JOIN Niveles ON Cursos.idNivel = Niveles.id')
         res.send({data})
     } catch (error) {
         res.send(error)

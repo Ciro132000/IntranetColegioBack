@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'idDocente'
       })
 
+      Secciones.hasMany(models.Aulas, {
+        foreignKey: 'idAula'
+      })
+
       Secciones.belongsTo(models.Horario,{
         foreignKey:'id',
         target_key: 'idSeccion'
@@ -32,7 +36,8 @@ module.exports = (sequelize, DataTypes) => {
     inicio: DataTypes.TIME,
     fin: DataTypes.TIME,
     idCurso: DataTypes.INTEGER,
-    idDocente: DataTypes.INTEGER
+    idDocente: DataTypes.INTEGER,
+    idAula: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Secciones',
