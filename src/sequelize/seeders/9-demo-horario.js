@@ -5,7 +5,7 @@ module.exports = {
     let horarios = [
       {
         horaInicio:'08:00:00',
-        horaFinal:'09:30:00',
+        horaFinal:'08:45:00',
         dia:1,
         idSeccion:1,
         idCurso:1,
@@ -15,7 +15,7 @@ module.exports = {
       },
       {
         horaInicio:'08:00:00',
-        horaFinal:'09:30:00',
+        horaFinal:'08:45:00',
         dia:2,
         idSeccion:2,
         idCurso:2,
@@ -25,7 +25,7 @@ module.exports = {
       },
       {
         horaInicio:'08:00:00',
-        horaFinal:'09:30:00',
+        horaFinal:'08:45:00',
         dia:3,
         idSeccion:3,
         idCurso:3,

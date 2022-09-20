@@ -14,6 +14,7 @@ router.post('/assign', controllerSections.assignSection)
 
 router.post('/assign/schedule', controllerSections.assignSchedule)
 
+router.get('/schedule', controllerSections.Schedule)
 
 // Exportamos todas las rutas
 module.exports = router; 

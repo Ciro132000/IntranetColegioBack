@@ -90,12 +90,12 @@ const assignSection = async (req, res) => {
 // Asignar horarios a la seccion
 const assignSchedule = async (req, res) => {
     try {
-
         // verificar que la seccion existe
         const numSections = await Secciones.findAndCountAll({
             where:{ id: req.body.idSeccion },
-            attributes:  ['idCurso']
+            attributes:  ['idCurso','idAula']
         })
+
 
         if(numSections.count > 0){
             
@@ -119,7 +119,20 @@ const assignSchedule = async (req, res) => {
     }
 }
 
+// Mostrar horarios
+const Schedule = async (req, res) => {
+    try {
+        const data = await Horario.findAll({
+            where:{ idSeccion: req.query.idSeccion },
+            attributes:  ['dia','horaInicio','horaFinal']
+        })
+        res.send({data})
+    } catch (error) {
+        res.send(error)
+    }
+}
+
 
 
 // Exportar todos los metodos
-module.exports = { mainFunction, registerSection, assignSection, assignSchedule}
+module.exports = { mainFunction, registerSection, assignSection, assignSchedule, Schedule}
