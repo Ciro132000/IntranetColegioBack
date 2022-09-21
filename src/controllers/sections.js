@@ -16,6 +16,15 @@ const mainFunction = async (req, res) => {
     }
 }
 
+const searchSection = async (req, res) => {
+    try {
+        const [data, metadata] = await sequelize.query(`SELECT Secciones.* , Cursos.idNivel, Cursos.nombre AS curso, Docentes.codigo AS codigoDocente, Docentes.nombre As nombreDocente, Niveles.nombre AS nivel FROM Secciones LEFT JOIN Docentes ON Secciones.idDocente = Docentes.id LEFT JOIN Cursos ON Secciones.idCurso = Cursos.id LEFT JOIN Niveles ON Cursos.idNivel = Niveles.id WHERE Secciones.id=${req.query.idSection}`)
+        res.send({data})
+    } catch (error) {
+        res.send({error})
+    }
+}
+
 const registerSection = async ( req, res ) => {
     try {
         let existCod = 0
@@ -135,4 +144,4 @@ const Schedule = async (req, res) => {
 
 
 // Exportar todos los metodos
-module.exports = { mainFunction, registerSection, assignSection, assignSchedule, Schedule}
+module.exports = { mainFunction, registerSection, assignSection, assignSchedule, Schedule, searchSection}

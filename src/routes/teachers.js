@@ -10,5 +10,7 @@ router.get('', controllerTeachers.allTeachers)
 
 router.post('/register', controllerTeachers.registerTeacher)
 
+router.get('/schedule', controllerTeachers.scheduleTeacher)
+
 // Exportamos todas las rutas
 module.exports = router; 

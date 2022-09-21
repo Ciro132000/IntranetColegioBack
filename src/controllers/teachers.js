@@ -73,5 +73,14 @@ const registerTeacher = async (req, res) => {
     }
 }
 
+const scheduleTeacher = async (req,res) => {
+    try {
+        const [data,metada] = await sequelize.query(`SELECT Horarios.id, Horarios.dia, Horarios.horaInicio, Horarios.horaFinal, Secciones.codigo As seccion, Cursos.nombre as curso FROM Horarios INNER JOIN Secciones ON Secciones.id = Horarios.idSeccion INNER JOIN Cursos ON Cursos.id = Secciones.idCurso INNER JOIN Docentes ON Docentes.id = Secciones.idDocente WHERE Secciones.idDocente = ${req.query.idDocente}`)
+        res.send({data})
+    } catch (error) {
+        res.send({error})
+    }
+}
+
 // Exportacion de funciones
-module.exports = { mainFunction, registerTeacher, allTeachers }
+module.exports = { mainFunction, registerTeacher, allTeachers, scheduleTeacher }

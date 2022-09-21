@@ -8,6 +8,8 @@ const controllerSections = require('../controllers/sections')
 
 router.get('', controllerSections.mainFunction)
 
+router.get('/search', controllerSections.searchSection)
+
 router.post('/register', controllerSections.registerSection)
 
 router.post('/assign', controllerSections.assignSection)
