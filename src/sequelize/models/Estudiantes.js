@@ -22,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
       Estudiantes.hasMany(models.Usuarios, {
         foreignKey: 'idUsuario'
       } )
+
+      Estudiantes.belongsTo(models.ForoRespuesta,{
+        foreignKey:'id',
+        target_key: 'idEstudiante'
+      })
     }
   }
   Estudiantes.init({

@@ -8,5 +8,7 @@ const controllerCourses = require('../controllers/courses')
 
 router.get('', controllerCourses.allCourses)
 
+router.get('/search', controllerCourses.searchCourses)
+
 // Exportamos todas las rutas
 module.exports = router; 

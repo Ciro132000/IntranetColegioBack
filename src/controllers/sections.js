@@ -18,8 +18,14 @@ const mainFunction = async (req, res) => {
 
 const searchSection = async (req, res) => {
     try {
-        const [data, metadata] = await sequelize.query(`SELECT Secciones.* , Cursos.idNivel, Cursos.nombre AS curso, Docentes.codigo AS codigoDocente, Docentes.nombre As nombreDocente, Niveles.nombre AS nivel FROM Secciones LEFT JOIN Docentes ON Secciones.idDocente = Docentes.id LEFT JOIN Cursos ON Secciones.idCurso = Cursos.id LEFT JOIN Niveles ON Cursos.idNivel = Niveles.id WHERE Secciones.id=${req.query.idSection}`)
-        res.send({data})
+        if(req.query.idSection){
+            const [data, metadata] = await sequelize.query(`SELECT Secciones.* , Cursos.idNivel, Cursos.nombre AS curso, Docentes.codigo AS codigoDocente, Docentes.nombre As nombreDocente, Niveles.nombre AS nivel FROM Secciones LEFT JOIN Docentes ON Secciones.idDocente = Docentes.id LEFT JOIN Cursos ON Secciones.idCurso = Cursos.id LEFT JOIN Niveles ON Cursos.idNivel = Niveles.id WHERE Secciones.id=${req.query.idSection}`)
+            res.send({data})
+        }
+        else if(req.query.codigo){
+            const [data, metadata] = await sequelize.query(`SELECT Secciones.* , Cursos.idNivel, Cursos.nombre AS curso, Docentes.codigo AS codigoDocente, Docentes.nombre As nombreDocente, Niveles.nombre AS nivel FROM Secciones LEFT JOIN Docentes ON Secciones.idDocente = Docentes.id LEFT JOIN Cursos ON Secciones.idCurso = Cursos.id LEFT JOIN Niveles ON Cursos.idNivel = Niveles.id WHERE Secciones.codigo='${req.query.codigo}'`)
+            res.send({data})
+        }
     } catch (error) {
         res.send({error})
     }
@@ -141,7 +147,25 @@ const Schedule = async (req, res) => {
     }
 }
 
+// SECCIONES POR AULA
+const allSectionClassroom = async (req, res) =>{
+    try {
+        const [data, meta] = await sequelize.query(`SELECT Secciones.* , Cursos.idNivel, Cursos.nombre AS curso, Docentes.codigo AS codigoDocente, Docentes.nombre As nombreDocente, Niveles.nombre AS nivel FROM Secciones LEFT JOIN Docentes ON Secciones.idDocente = Docentes.id LEFT JOIN Cursos ON Secciones.idCurso = Cursos.id LEFT JOIN Niveles ON Cursos.idNivel = Niveles.id WHERE Secciones.idAula=${req.query.idAula}`)
+        res.send({data})
+    } catch (error) {
+        res.send({error})
+    }
+}
+
 
 
 // Exportar todos los metodos
-module.exports = { mainFunction, registerSection, assignSection, assignSchedule, Schedule, searchSection}
+module.exports = { 
+    mainFunction, 
+    registerSection, 
+    assignSection, 
+    assignSchedule, 
+    Schedule, 
+    searchSection,
+    allSectionClassroom
+}
