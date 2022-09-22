@@ -82,5 +82,14 @@ const scheduleTeacher = async (req,res) => {
     }
 }
 
+const sections = async (req, res) => {
+    try {
+        const [data,metada] = await sequelize.query(`SELECT Secciones.* , Cursos.idNivel, Cursos.nombre AS curso, Docentes.codigo AS codigoDocente, Docentes.nombre As nombreDocente, Niveles.nombre AS nivel FROM Secciones LEFT JOIN Docentes ON Secciones.idDocente = Docentes.id LEFT JOIN Cursos ON Secciones.idCurso = Cursos.id LEFT JOIN Niveles ON Cursos.idNivel = Niveles.id WHERE Docentes.id=${req.query.idDocente}`)
+        res.send({data})
+    } catch (error) {
+        res.send({error})
+    }
+}
+
 // Exportacion de funciones
-module.exports = { mainFunction, registerTeacher, allTeachers, scheduleTeacher }
+module.exports = { mainFunction, registerTeacher, allTeachers, scheduleTeacher,sections }

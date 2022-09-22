@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
         target_key: 'idSeccion'
       })
 
+      Secciones.belongsTo(models.Foros,{
+        foreignKey:'id',
+        target_key: 'idSeccion'
+      })
+
     }
   }
   Secciones.init({

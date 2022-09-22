@@ -21,14 +21,16 @@ const registerStudens = async (req, res) => {
         
         // Verificando si existe estudiante con mismo dni
         const existStudent = await Estudiantes.findOne({
-            where: {dni: req.body.dni}
+            where: {dni: req.body.dni},
+            attributes: {exclude: ['idEstudiante']}
         }) 
 
         if(existStudent === null){
             do {
                 cod = generateRandomString(6,'E')
                 existCod = await Estudiantes.findOne({
-                    where: {codigo: cod}
+                    where: {codigo: cod},
+                    attributes: {exclude: ['idEstudiante']}
                 })  
             } while (existCod != null);
 
