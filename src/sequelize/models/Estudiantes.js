@@ -27,6 +27,24 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey:'id',
         target_key: 'idEstudiante'
       })
+
+      // evaluaciones
+
+      Estudiantes.belongsTo(models.Notas,{
+        foreignKey:'id',
+        target_key: 'idEstudiante'
+      })
+
+      Estudiantes.belongsTo(models.RespuestasTarea,{
+        foreignKey:'id',
+        target_key: 'idEstudiante'
+      })
+
+      Estudiantes.belongsTo(models.RespuestasExamen,{
+        foreignKey:'id',
+        target_key: 'idEstudiante'
+      })
+
     }
   }
   Estudiantes.init({
