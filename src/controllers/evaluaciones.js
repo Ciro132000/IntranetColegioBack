@@ -40,7 +40,9 @@ const createTarea = async (req, res) => {
 
 const reprogramarEvaluacion = async (req, res) => {
     try {
-        
+        const data = await Evaluaciones.update(req.body,{ where: { id: req.query.idEvaluacion } } )
+        console.log(req.body, req.query)
+        res.send({ data })
     } catch (error) {
         res.send({error})
     }
@@ -65,11 +67,44 @@ const tiposEvaluacion = async (req, res) => {
     }
 }
 
+// Evaluaciones por seccion
+const allSection = async (req, res) => {
+    try {
+        const idSeccion = req.query.idSeccion
+        const tareas = await Evaluaciones.findAll({
+            where: {
+                idSeccion,
+                idTipo:2
+            },
+            attributes: {exclude: ['idEvaluacion']}
+        })
+
+        const examenes = await Evaluaciones.findAll({
+            where: {
+                idSeccion,
+                idTipo:1
+            },
+            attributes: {exclude: ['idEvaluacion']}
+        })
+
+        const data = {
+            tareas,
+            examenes
+        }
+
+        res.send({data})
+    } catch (error) {
+        res.send({error})
+    }
+}
+
+
 // Exportacion de funciones
 module.exports = { 
     createExamen,
     createTarea,
     reprogramarEvaluacion,
     eliminarEvaluacion,
-    tiposEvaluacion
+    tiposEvaluacion,
+    allSection
 }
