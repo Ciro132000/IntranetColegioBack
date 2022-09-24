@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       } )
 
       Horario.hasMany(models.Aulas, {
-        foreignKey: 'idAulas'
+        foreignKey: 'idAula'
       } )
 
     }

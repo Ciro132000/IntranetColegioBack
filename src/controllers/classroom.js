@@ -2,7 +2,7 @@
 require('dotenv').config();
 const { QueryTypes } = require('sequelize');
 const { sequelize } = require('../config/connection')
-
+const {Aulas} = require('../sequelize/models')
 
 // Funciones del controlador
 const allClassroom = async (req, res) => {
@@ -27,5 +27,28 @@ const scheduleClassroom = async (req, res) => {
     }
 }
 
+const createClassroom = async (req, res) => {
+    try {
+
+        // Verificando si el aula existe
+        const existAula = await Aulas.findOne({
+            where: {grado: req.body.grado, idNivel: req.body.idNivel, seccion: req.body.seccion},
+            attributes: {exclude: ['idAula']}
+        }) 
+
+        if(existAula === null){
+
+            const data = await Aulas.create(req.body)
+
+            res.send({data}) 
+        }else{
+            res.send({msg:`El aula que intenta registrar ya existe`})
+        }
+
+    } catch (error) {
+        res.send({error})
+    }
+}
+
 // Exportacion de funciones
-module.exports = { allClassroom, scheduleClassroom }
+module.exports = { allClassroom, scheduleClassroom, createClassroom }

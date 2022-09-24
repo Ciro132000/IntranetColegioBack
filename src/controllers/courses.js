@@ -32,5 +32,29 @@ const searchCourses = async (req, res) => {
     }
 }
 
+// Crear curso
+const createCourses = async (req, res) => {
+    try {
+
+        // Verificando si el curso existe
+        const existCourse = await Cursos.findOne({
+            where: {nombre: req.body.nombre, idNivel: req.body.idNivel},
+            attributes: {exclude: ['idCurso']}
+        }) 
+
+        if(existCourse === null){
+
+            const data = await Cursos.create(req.body)
+
+            res.send({data}) 
+        }else{
+            res.send({msg:`El curso que intenta registrar ya existe`})
+        }
+
+    } catch (error) {
+        res.send({error})
+    }
+}
+
 // Exportacion de funciones
-module.exports = { mainFunction, allCourses, searchCourses }
+module.exports = { mainFunction, allCourses, searchCourses, createCourses }
