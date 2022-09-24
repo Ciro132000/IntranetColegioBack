@@ -10,5 +10,7 @@ router.get('', controllerCourses.allCourses)
 
 router.get('/search', controllerCourses.searchCourses)
 
+router.post('/create', controllerCourses.createCourses)
+
 // Exportamos todas las rutas
 module.exports = router; 

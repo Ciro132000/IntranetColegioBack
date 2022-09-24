@@ -10,5 +10,7 @@ router.get('', controllerClassroom.allClassroom)
 
 router.get('/schedule', controllerClassroom.scheduleClassroom)
 
+router.post('/create', controllerClassroom.createClassroom)
+
 // Exportamos todas las rutas
 module.exports = router; 
