@@ -7,6 +7,7 @@ const { sequelize } = require('../config/connection')
 const { generateRandomString }  = require('../utils/shared')
 const {Estudiantes, Usuarios} = require('../sequelize/models')
 const { encrypt } = require('../utils/handlePassword');
+const { verifyToken } = require('../utils/handleJwt')
 
 // Funciones del controlador
 const mainFunction = async (req, res) => {
@@ -63,10 +64,42 @@ const registerStudens = async (req, res) => {
     }
 }
 
-const studentsSection = (req, res) => {
-    
+const studentsSection = async(req, res) => {
+    try {
+        const [data, meta] = await sequelize.query(`SELECT Estudiantes.* FROM Estudiantes INNER JOIN Secciones ON Secciones.idAula = Estudiantes.idAula WHERE Secciones.id=${req.query.idSeccion}`)
+
+        res.send({data}) 
+
+    } catch (error) {
+        console.log(error)
+        res.send({error})
+    }
+}
+
+const notasSection = async(req, res) => {
+    try {
+        
+        const token = req.headers.authorization.split(' ').pop();
+        const dataToken = await verifyToken(token);
+
+        const estudiante = await Estudiantes.findOne({
+            where:{idUsuario: dataToken.id},
+            attributes: ['id']
+        })
+        const idEstudiante = estudiante.dataValues.id
+
+        const idSeccion = req.query.idSeccion
+
+        const [data, meta] = await sequelize.query(`SELECT e.id as idEvaluacion, e.titulo, e.notaMaxima, e.idTipo, n.nota, n.estado FROM Notas AS n INNER JOIN Evaluaciones AS e ON n.idEvaluacion = e.id INNER JOIN Secciones AS s ON S.id = e.idSeccion WHERE n.idEstudiante = ${idEstudiante} AND s.id = ${idSeccion}`)
+
+        res.send({data}) 
+
+    } catch (error) {
+        console.log(error)
+        res.send({error})
+    }
 }
 
 
 // Exportacion de funciones
-module.exports = { mainFunction, registerStudens }
+module.exports = { mainFunction, registerStudens, studentsSection, notasSection }

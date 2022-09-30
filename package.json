@@ -13,9 +13,12 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
+    "cloudinary": "^1.32.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "express-fileupload": "^1.4.0",
+    "fs-extra": "^9.1.0",
     "jsonwebtoken": "^8.5.1",
     "multer": "*",
     "mysql2": "^2.3.3",

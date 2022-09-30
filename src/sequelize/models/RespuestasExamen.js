@@ -18,13 +18,18 @@ module.exports = (sequelize, DataTypes) => {
       RespuestasExamen.hasMany(models.Estudiantes, {
         foreignKey: 'idEstudiante'
       })
+
+      RespuestasExamen.hasMany(models.Evaluaciones, {
+        foreignKey: 'idEvaluacion'
+      })
     }
   }
   RespuestasExamen.init({
     respuesta: DataTypes.STRING,
     puntos: DataTypes.INTEGER,
     idPregunta: DataTypes.INTEGER,
-    idEstudiante: DataTypes.INTEGER
+    idEstudiante: DataTypes.INTEGER,
+    idEvaluacion: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'RespuestasExamen',
