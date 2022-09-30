@@ -7,6 +7,11 @@ module.exports = {
     host: process.env.DATABASE_HOST,
     port: process.env.DATABASE_PORT,
     dialect: "mysql",
+    // dialectOptions: {
+    //     ssl: {
+    //         rejectUnauthorized: true,        
+    //     }
+    // },
     define: {
         timestamps: true
     }

@@ -19,6 +19,16 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey:'id',
         target_key: 'idEvaluacion'
       })
+
+      Evaluaciones.belongsTo(models.RespuestasExamen ,{
+        foreignKey:'id',
+        target_key: 'idEvaluacion'
+      })
+
+      Evaluaciones.belongsTo(models.RespuestasTarea ,{
+        foreignKey:'id',
+        target_key: 'idEvaluacion'
+      })
     }
   }
   Evaluaciones.init({
