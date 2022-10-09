@@ -14,5 +14,9 @@ router.get('/searchSection', controllerStudents.studentsSection)
 
 router.get('/notas', controllerStudents.notasSection)
 
+router.get('/pendientes', controllerStudents.actividadesPendientes)
+
+router.get('/historial', controllerStudents.historial)
+
 // Exportamos todas las rutas
 module.exports = router; 

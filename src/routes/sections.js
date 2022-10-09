@@ -20,6 +20,7 @@ router.get('/schedule', controllerSections.Schedule)
 
 router.get('/classroom', controllerSections.allSectionClassroom)
 
+router.get('/students', controllerSections.getStudents)
 
 // Exportamos todas las rutas
 module.exports = router; 

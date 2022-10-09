@@ -5,7 +5,7 @@ const { QueryTypes } = require('sequelize');
 const { sequelize } = require('../config/connection')
 
 const { generateRandomString }  = require('../utils/shared')
-const {Estudiantes, Usuarios} = require('../sequelize/models')
+const {Estudiantes, Usuarios, Actividades} = require('../sequelize/models')
 const { encrypt } = require('../utils/handlePassword');
 const { verifyToken } = require('../utils/handleJwt')
 
@@ -100,6 +100,50 @@ const notasSection = async(req, res) => {
     }
 }
 
+const actividadesPendientes = async(req,res)=>{
+    try {
+        const [evaluaciones,meta] =await sequelize.query(`SELECT * FROM Evaluaciones WHERE Evaluaciones.fechaFin > now() AND Evaluaciones.idSeccion =${req.query.idSeccion}`)
+
+
+        const [foros, metada] = await sequelize.query(`SELECT * FROM Foros WHERE Foros.fechaFin > now() AND Foros.idSeccion=${req.query.idSeccion}`)
+
+        const data ={
+            evaluaciones,
+            foros
+        }
+
+        res.send({data})
+    } catch (error) {
+        console.log(error)
+        res.send({error})
+    }
+}
+
+const historial = async(req,res)=>{
+    try {
+        const token = req.headers.authorization.split(' ').pop();
+        const dataToken = await verifyToken(token);
+
+        const estudiante = await Estudiantes.findOne({
+            where:{idUsuario: dataToken.id},
+            attributes: ['id']
+        })
+        const idEstudiante = estudiante.dataValues.id
+
+        const data = await Actividades.findAll({
+            where:{idEstudiante:idEstudiante},
+            order: [
+                ['createdAt', 'DESC']
+            ],
+        })
+
+        res.send({data})
+    } catch (error) {
+        console.log(error)
+        res.send({error})
+    }
+} 
+
 
 // Exportacion de funciones
-module.exports = { mainFunction, registerStudens, studentsSection, notasSection }
+module.exports = { mainFunction, registerStudens, studentsSection, notasSection, actividadesPendientes, historial }

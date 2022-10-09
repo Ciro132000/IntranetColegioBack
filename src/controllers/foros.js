@@ -3,7 +3,7 @@ require('dotenv').config();
 const { QueryTypes } = require('sequelize');
 
 const { sequelize } = require('../config/connection')
-const { Foros,ForoRespuesta, Estudiantes } = require('../sequelize/models')
+const { Foros,ForoRespuesta, Estudiantes, Actividades } = require('../sequelize/models')
 
 
 // Crear Foro
@@ -64,7 +64,23 @@ const foroRespuesta = async (req, res) => {
 
 const Respuesta = async (req, res) => {
     try {
+
+        const foro = await Foros.findOne({
+            where: {id:req.body.idForo},
+            attributes: {exclude: ['idForo']}
+        })
+
         const data = await ForoRespuesta.create(req.body)
+
+        if(data){
+            const actividad = {
+                actividad:'Realizaste un nuevo foro',
+                nombreActividad:`Respondiste el foro: ${foro.titulo}`,
+                idEstudiante:req.body.idEstudiante
+            }
+            await Actividades.create(actividad)
+        }
+
         res.send({data})
 
     } catch (error) {

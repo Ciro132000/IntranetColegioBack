@@ -1,36 +1,18 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Estudiantes', {
+    await queryInterface.createTable('Notificaciones', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      codigo: {
+      tipoNotificación: {
         type: Sequelize.STRING
       },
-      nombre: {
+      mensaje: {
         type: Sequelize.STRING
-      },
-      apellido: {
-        type: Sequelize.STRING
-      },
-      grado: {
-        type: Sequelize.INTEGER
-      },
-      dni: {
-        type: Sequelize.STRING
-      },
-      idNivel: {
-        type: Sequelize.INTEGER,
-        references:{
-          model: 'Niveles',
-          key: 'id'
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
       },
       idAula: {
         type: Sequelize.INTEGER,
@@ -41,19 +23,10 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
-      idUsuario:{
+      idDocente: {
         type: Sequelize.INTEGER,
         references:{
-          model: 'Usuarios',
-          key: 'id'
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      },
-      idGrupo:{
-        type: Sequelize.INTEGER,
-        references:{
-          model: 'Grupos',
+          model: 'Docentes',
           key: 'id'
         },
         onDelete: 'CASCADE',
@@ -70,6 +43,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Estudiantes');
+    await queryInterface.dropTable('Notificaciones');
   }
 };

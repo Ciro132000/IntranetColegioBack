@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { QueryTypes } = require('sequelize');
 const { sequelize } = require('../config/connection')
-const { Evaluaciones, PreguntasExamen, TipoEvaluacion, RespuestasExamen, Estudiantes, RespuestasTarea, Notas} = require('../sequelize/models')
+const { Evaluaciones, PreguntasExamen, TipoEvaluacion, RespuestasExamen, Estudiantes, RespuestasTarea, Notas, Actividades} = require('../sequelize/models')
 const { verifyToken } = require('../utils/handleJwt')
 const { uploadFile } = require('../utils/cloudinary')
 const fs =require('fs-extra')
@@ -149,6 +149,11 @@ const getContent = async (req, res) => {
 const respuestaExamen = async (req, res) => {
     try {
 
+        const evaluacion = await Evaluaciones.findOne({
+            where: {id:req.body[0].idEvaluacion},
+            attributes: {exclude: ['idEvaluacion']}
+        })
+
         const token = req.headers.authorization.split(' ').pop();
         const dataToken = await verifyToken(token);
 
@@ -167,6 +172,15 @@ const respuestaExamen = async (req, res) => {
             data = await RespuestasExamen.create(dataEnviar)
         })
 
+        if(data){
+            const actividad = {
+                actividad:'Realización de examen',
+                nombreActividad:`Realizaste el examen: ${evaluacion.titulo}`,
+                idEstudiante
+            }
+            await Actividades.create(actividad)
+        }
+
         res.send({data})
     } catch (error) {
         res.send({error})
@@ -176,6 +190,12 @@ const respuestaExamen = async (req, res) => {
 // registrar respuesta tarea
 const respuestaTarea = async (req, res) => {
     try {
+
+        const evaluacion = await Evaluaciones.findOne({
+            where: {id:req.body.idEvaluacion},
+            attributes: {exclude: ['idEvaluacion']}
+        })
+
         // Consiguiendo el ID del estudiante
         const token = req.headers.authorization.split(' ').pop();
         const dataToken = await verifyToken(token);
@@ -206,6 +226,14 @@ const respuestaTarea = async (req, res) => {
 
         const data = await RespuestasTarea.create(enviar)
 
+        if(data){
+            const actividad = {
+                actividad:'Respuesta de tarea',
+                nombreActividad:`Respondiste la tarea: ${evaluacion.titulo}`,
+                idEstudiante
+            }
+            await Actividades.create(actividad)
+        }
 
         res.send({data})
 

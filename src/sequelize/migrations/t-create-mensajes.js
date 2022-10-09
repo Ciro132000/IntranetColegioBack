@@ -1,47 +1,17 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Estudiantes', {
+    await queryInterface.createTable('Mensajes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      codigo: {
+      mensaje: {
         type: Sequelize.STRING
       },
-      nombre: {
-        type: Sequelize.STRING
-      },
-      apellido: {
-        type: Sequelize.STRING
-      },
-      grado: {
-        type: Sequelize.INTEGER
-      },
-      dni: {
-        type: Sequelize.STRING
-      },
-      idNivel: {
-        type: Sequelize.INTEGER,
-        references:{
-          model: 'Niveles',
-          key: 'id'
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      },
-      idAula: {
-        type: Sequelize.INTEGER,
-        references:{
-          model: 'Aulas',
-          key: 'id'
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      },
-      idUsuario:{
+      idEnvia: {
         type: Sequelize.INTEGER,
         references:{
           model: 'Usuarios',
@@ -50,10 +20,10 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
-      idGrupo:{
+      idRecibe: {
         type: Sequelize.INTEGER,
         references:{
-          model: 'Grupos',
+          model: 'Usuarios',
           key: 'id'
         },
         onDelete: 'CASCADE',
@@ -70,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Estudiantes');
+    await queryInterface.dropTable('Mensajes');
   }
 };
