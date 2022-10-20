@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { QueryTypes } = require('sequelize');
 const { sequelize } = require('../config/connection')
-const { Evaluaciones, PreguntasExamen, TipoEvaluacion, RespuestasExamen, Estudiantes, RespuestasTarea, Notas, Actividades} = require('../sequelize/models')
+const { Evaluaciones, Secciones, Notificaciones , PreguntasExamen, TipoEvaluacion, RespuestasExamen, Estudiantes, RespuestasTarea, Notas, Actividades} = require('../sequelize/models')
 const { verifyToken } = require('../utils/handleJwt')
 const { uploadFile } = require('../utils/cloudinary')
 const fs =require('fs-extra')
@@ -22,6 +22,20 @@ const createExamen = async (req, res) => {
             preguntas: preguntasRegistradas.length
         }
 
+        if(data){
+            const Aula = await Secciones.findOne({
+                where: {id:req.body.idSeccion},
+                attributes: ['idAula']
+            })
+            const dataCreate={
+                idAula:Aula.dataValues.idAula,
+                tipoNotificación:"Examen",
+                mensaje:"Tiene un nuevo examen creado para su aula",
+                idDocente:1
+            }
+            await Notificaciones.create(dataCreate)
+        }
+
         console.log(preguntasRegistradas)
 
         res.send({ data })
@@ -34,6 +48,21 @@ const createTarea = async (req, res) => {
     try {
         const tarea = req.body
         const data = await Evaluaciones.create(tarea)
+
+        if(data){
+            const Aula = await Secciones.findOne({
+                where: {id:req.body.idSeccion},
+                attributes: ['idAula']
+            })
+            const dataCreate={
+                idAula:Aula.dataValues.idAula,
+                tipoNotificación:"Tarea",
+                mensaje:"Tiene una nueva tarea creada para su aula",
+                idDocente:1
+            }
+            await Notificaciones.create(dataCreate)
+        }
+
         res.send({ data })
 
     } catch (error) {

@@ -37,6 +37,11 @@ module.exports = (sequelize, DataTypes) => {
         target_key: 'idEstudiante'
       })
 
+      Estudiantes.belongsTo(models.Asistencias,{
+        foreignKey:'id',
+        target_key: 'idEstudiante'
+      })
+
 
       // evaluaciones
 
