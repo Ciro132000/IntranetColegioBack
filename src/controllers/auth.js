@@ -45,7 +45,7 @@ const loginCtrl = async (req,res) => {
             case 3:
                 dataUser = await Estudiantes.findOne({
                     where: {idUsuario:user.id},
-                    attributes: {exclude: ['idEstudiante']}
+                    attributes: {exclude: ['idEstudiante','idSeccion']}
                 })
                 break; 
         }

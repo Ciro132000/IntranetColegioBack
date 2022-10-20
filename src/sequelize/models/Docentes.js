@@ -16,6 +16,12 @@ module.exports = (sequelize, DataTypes) => {
         target_key: 'idDocente'
       })
 
+
+      Docentes.belongsTo(models.Notificaciones,{
+        foreignKey:'id',
+        target_key: 'idDocente'
+      })
+
       Docentes.hasMany(models.Niveles, {
         foreignKey: 'idNivel'
       } )

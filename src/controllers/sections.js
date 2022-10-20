@@ -157,6 +157,16 @@ const allSectionClassroom = async (req, res) =>{
     }
 }
 
+const getStudents = async (req, res) => {
+    try {
+        const [data,meta] = await sequelize.query(`SELECT DISTINCT e.* FROM Secciones as s INNER JOIN Estudiantes AS e ON e.idAula = s.idAula WHERE s.id = ${req.query.idSeccion}`)
+        res.send({data})
+    } catch (error) {
+        res.send(error)
+    }
+}
+
+
 
 
 // Exportar todos los metodos
@@ -167,5 +177,6 @@ module.exports = {
     assignSchedule, 
     Schedule, 
     searchSection,
-    allSectionClassroom
+    allSectionClassroom,
+    getStudents
 }

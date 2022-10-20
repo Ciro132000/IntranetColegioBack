@@ -23,10 +23,20 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'idUsuario'
       } )
 
+      Estudiantes.hasMany(models.Grupos, {
+        foreignKey: 'idGrupo'
+      } )
+
       Estudiantes.belongsTo(models.ForoRespuesta,{
         foreignKey:'id',
         target_key: 'idEstudiante'
       })
+
+      Estudiantes.belongsTo(models.Actividades,{
+        foreignKey:'id',
+        target_key: 'idEstudiante'
+      })
+
 
       // evaluaciones
 
@@ -55,7 +65,8 @@ module.exports = (sequelize, DataTypes) => {
     dni: DataTypes.STRING,
     idNivel: DataTypes.INTEGER,
     idAula: DataTypes.INTEGER,
-    idUsuario:DataTypes.INTEGER
+    idUsuario:DataTypes.INTEGER,
+    idGrupo:DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Estudiantes',
