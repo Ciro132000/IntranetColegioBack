@@ -4,7 +4,7 @@ const fs = require('fs')
 const { handleHttpError } = require('../utils/handleError')
 const { encrypt, compare } = require('../utils/handlePassword');
 const { tokenSign } = require('../utils/handleJwt')
-const {Usuarios, Docentes, Estudiantes, Roles} = require('../sequelize/models')
+const {Usuarios, Docentes, Estudiantes, Roles, Perfiles} = require('../sequelize/models')
 
 
 const loginCtrl = async (req,res) => {
@@ -50,13 +50,18 @@ const loginCtrl = async (req,res) => {
                 break; 
         }
 
+        const perfil = await Perfiles.findOne({
+            where: {id:user.id},
+            attributes: {exclude: ['idUsuario']}
+        })
 
         user.set('contrasena', undefined, {strict:false})
 
         const data = {
             token: await tokenSign(user),
             user,
-            dataUser
+            dataUser,
+            perfil
         }
 
 

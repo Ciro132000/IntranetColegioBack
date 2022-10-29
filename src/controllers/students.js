@@ -66,7 +66,7 @@ const registerStudens = async (req, res) => {
 
 const studentsSection = async(req, res) => {
     try {
-        const [data, meta] = await sequelize.query(`SELECT Estudiantes.* FROM Estudiantes INNER JOIN Secciones ON Secciones.idAula = Estudiantes.idAula WHERE Secciones.id=${req.query.idSeccion}`)
+        const [data, meta] = await sequelize.query(`SELECT Estudiantes.* , Perfiles.img AS img FROM Estudiantes INNER JOIN Secciones ON Secciones.idAula = Estudiantes.idAula INNER JOIN Perfiles ON Estudiantes.idUsuario = Perfiles.idUsuario WHERE Secciones.id=${req.query.idSeccion}`)
 
         res.send({data}) 
 

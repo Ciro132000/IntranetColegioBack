@@ -3,7 +3,7 @@ require('dotenv').config();
 const { QueryTypes } = require('sequelize');
 
 const { sequelize } = require('../config/connection')
-const { Foros,ForoRespuesta, Estudiantes, Actividades } = require('../sequelize/models')
+const { Foros,ForoRespuesta, Secciones, Notificaciones, Estudiantes, Actividades } = require('../sequelize/models')
 
 
 // Crear Foro
@@ -12,6 +12,21 @@ const createForo = async (req, res) => {
         const request = req.body
         if(request.pregunta != null && request.fechaInicio !=null && request.fechaFin != null && request.idSeccion !=null){
             const data = await Foros.create(req.body)
+
+            if(data){
+                const Aula = await Secciones.findOne({
+                    where: {id:req.body.idSeccion},
+                    attributes: ['idAula']
+                })
+                const dataCreate={
+                    idAula:Aula.dataValues.idAula,
+                    tipoNotificación:"Foros",
+                    mensaje:"Tiene un nuevo foror creado para su aula",
+                    idDocente:1
+                }
+                await Notificaciones.create(dataCreate)
+            }
+
             res.send({data})
         }else{
             res.send({msg:'Envie datos correctamente'})

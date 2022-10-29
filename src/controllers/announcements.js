@@ -30,8 +30,8 @@ const create = async (req,res) => {
             })
             const dataCreate={
                 idAula:Aula.dataValues.idAula,
-                tipoNotificación:"NUevo",
-                mensaje:"Nuevo",
+                tipoNotificación:"Anuncio",
+                mensaje:"Tiene un nuevo anuncio para su aula",
                 idDocente
             }
             await Notificaciones.create(dataCreate)
