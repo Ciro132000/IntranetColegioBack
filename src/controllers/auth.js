@@ -4,7 +4,7 @@ const fs = require('fs')
 const { handleHttpError } = require('../utils/handleError')
 const { encrypt, compare } = require('../utils/handlePassword');
 const { tokenSign } = require('../utils/handleJwt')
-const {Usuarios, Docentes, Estudiantes, Roles, Perfiles} = require('../sequelize/models')
+const {Usuarios, Docentes, Estudiantes, Sesiones, Perfiles} = require('../sequelize/models')
 
 
 const loginCtrl = async (req,res) => {
@@ -27,6 +27,18 @@ const loginCtrl = async (req,res) => {
             return
         }
         
+        const userSesion = {
+            idUsuario:user.id,
+            ip:req.socket.remoteAddress
+        }
+
+        await Sesiones.create(userSesion)
+        
+        const sesiones = await Sesiones.count({
+            where: {idUsuario:user.id}
+        })
+        console.log(sesiones)
+
         let dataUser = {
             nombre:'Administrador',
             apellido: 'Administrador'
@@ -61,7 +73,8 @@ const loginCtrl = async (req,res) => {
             token: await tokenSign(user),
             user,
             dataUser,
-            perfil
+            perfil,
+            sesiones
         }
 
 
