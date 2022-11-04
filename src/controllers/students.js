@@ -86,11 +86,12 @@ const notasSection = async(req, res) => {
             where:{idUsuario: dataToken.id},
             attributes: ['id']
         })
+
         const idEstudiante = estudiante.dataValues.id
 
         const idSeccion = req.query.idSeccion
 
-        const [data, meta] = await sequelize.query(`SELECT e.id as idEvaluacion, e.titulo, e.notaMaxima, e.idTipo, n.nota, n.estado FROM Notas AS n INNER JOIN Evaluaciones AS e ON n.idEvaluacion = e.id INNER JOIN Secciones AS s ON S.id = e.idSeccion WHERE n.idEstudiante = ${idEstudiante} AND s.id = ${idSeccion}`)
+        const [data, meta] = await sequelize.query(`SELECT e.id as idEvaluacion, e.titulo, e.notaMaxima, e.idTipo, n.nota, n.estado FROM Notas AS n INNER JOIN Evaluaciones AS e ON n.idEvaluacion = e.id INNER JOIN Secciones AS s ON s.id = e.idSeccion WHERE n.idEstudiante = ${idEstudiante} AND s.id = ${idSeccion}`)
 
         res.send({data}) 
 
