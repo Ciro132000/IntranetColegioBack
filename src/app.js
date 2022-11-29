@@ -27,3 +27,5 @@ app.listen(port, () => {
 })
 
 dbConnectMySql();
+
+module.exports = app

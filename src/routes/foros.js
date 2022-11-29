@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
+const auth = require('../middleware/session');
 const controllerForos = require('../controllers/foros')
 
 // Definicio de rutas
-router.post('/create', controllerForos.createForo)
+router.post('/create', auth.authMiddlewareDocente, controllerForos.createForo)
 
-router.get('/search', controllerForos.main)
+router.get('/search', auth.authMiddleware, controllerForos.main)
 
-router.get('/responses', controllerForos.foroRespuesta)
+router.get('/responses', auth.authMiddleware, controllerForos.foroRespuesta)
 
-router.post('/respuesta', controllerForos.Respuesta)
+router.post('/respuesta', auth.authMiddleware, controllerForos.Respuesta)
 
 
 // Exportamos todas las rutas

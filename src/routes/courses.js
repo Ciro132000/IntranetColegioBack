@@ -20,5 +20,6 @@ router.get('/content', controllerCourses.getContent)
 
 router.get('/leccion', controllerCourses.getLesson)
 
+
 // Exportamos todas las rutas
 module.exports = router; 
