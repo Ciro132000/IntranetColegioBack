@@ -7,6 +7,7 @@ const { sequelize } = require('../config/connection')
 const {Cursos, Modulos, Lecciones} = require('../sequelize/models')
 const { uploadFile } = require('../utils/cloudinary')
 const fs =require('fs-extra')
+const { verifyToken } = require('../utils/handleJwt')
 
 // Funciones del controlador
 const mainFunction = (req, res) => {
@@ -33,6 +34,7 @@ const searchCourses = async (req, res) => {
         res.send({error})
     }
 }
+
 
 // Crear curso
 const createCourses = async (req, res) => {

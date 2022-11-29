@@ -23,7 +23,7 @@ const registerStudens = async (req, res) => {
         // Verificando si existe estudiante con mismo dni
         const existStudent = await Estudiantes.findOne({
             where: {dni: req.body.dni},
-            attributes: {exclude: ['idEstudiante']}
+            attributes: {exclude: ['idEstudiante','idSeccion']}
         }) 
 
         if(existStudent === null){
@@ -31,7 +31,7 @@ const registerStudens = async (req, res) => {
                 cod = generateRandomString(6,'E')
                 existCod = await Estudiantes.findOne({
                     where: {codigo: cod},
-                    attributes: {exclude: ['idEstudiante']}
+                    attributes: {exclude: ['idEstudiante','idSeccion']}
                 })  
             } while (existCod != null);
 
@@ -56,6 +56,7 @@ const registerStudens = async (req, res) => {
             res.send({data}) 
         }else{
             res.send({msg:`El estudiante con dni ${req.body.dni} ya se encuentra registrado en la institución`})
+            res.status(400)
         }
 
     } catch (error) {

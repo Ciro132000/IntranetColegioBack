@@ -2,25 +2,26 @@
 const express = require('express');
 const router = express.Router();
 
+const auth = require('../middleware/session');
 const controllerSections = require('../controllers/sections')
 
 // Definicio de rutas
 
-router.get('', controllerSections.mainFunction)
+router.get('', auth.authMiddleware, controllerSections.mainFunction)
 
-router.get('/search', controllerSections.searchSection)
+router.get('/search', auth.authMiddleware, controllerSections.searchSection)
 
-router.post('/register', controllerSections.registerSection)
+router.post('/register', auth.authMiddlewareAdmin, controllerSections.registerSection)
 
-router.post('/assign', controllerSections.assignSection)
+router.post('/assign', auth.authMiddlewareAdmin, controllerSections.assignSection)
 
-router.post('/assign/schedule', controllerSections.assignSchedule)
+router.post('/assign/schedule',  auth.authMiddlewareAdmin, controllerSections.assignSchedule)
 
-router.get('/schedule', controllerSections.Schedule)
+router.get('/schedule', auth.authMiddleware, controllerSections.Schedule)
 
-router.get('/classroom', controllerSections.allSectionClassroom)
+router.get('/classroom', auth.authMiddleware, controllerSections.allSectionClassroom)
 
-router.get('/students', controllerSections.getStudents)
+router.get('/students', auth.authMiddleware, controllerSections.getStudents)
 
 // Exportamos todas las rutas
 module.exports = router; 
